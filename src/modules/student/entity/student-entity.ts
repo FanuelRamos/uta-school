@@ -1,5 +1,6 @@
 import BaseEntity from '../../_shared/domain/entity/base-entity'
 import Id from '../../_shared/domain/value-object/id-value-object'
+import StudentValidatorFactory from '../factories/student-validator-factory'
 
 type StudentProps = {
   id?: Id
@@ -20,6 +21,12 @@ export default class StudentEntity extends BaseEntity {
     this._name = props.name
     this._phone = props.phone
     this._email = props.email
+
+    this.validate()
+  }
+
+  validate (): void {
+    StudentValidatorFactory.create().validate(this)
   }
 
   get name (): string { return this._name }
