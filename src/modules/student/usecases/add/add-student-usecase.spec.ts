@@ -1,4 +1,5 @@
 import Id from '../../../_shared/domain/value-object/id-value-object'
+import { InvalidParamError } from '../../../_shared/utils/errors'
 import StudentGateway from '../../gateway/student-gateway'
 import AddStudentUseCase from './add-student-usecase'
 import { AddStudentUseCaseInputDTO, AddStudentUseCaseOutputDTO } from './add-student-usecase-dto'
@@ -45,5 +46,12 @@ describe('AddStudentUseCase test', () => {
     const response = await sut.execute(makeFakeRequest)
     expect(response).toBeTruthy()
     expect(response).toBeTruthy()
+  })
+
+  test('Should throw if try to add a Student with already existen email', async () => {
+    const { sut, repository } = makeSut()
+    repository.find = jest.fn().mockImplementationOnce(() => makeFakeStudent)
+    const promise = sut.execute(makeFakeRequest)
+    await expect(promise).rejects.toThrowError(new InvalidParamError('email'))
   })
 })
