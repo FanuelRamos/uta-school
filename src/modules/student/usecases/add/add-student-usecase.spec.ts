@@ -1,6 +1,6 @@
 import Id from '../../../_shared/domain/value-object/id-value-object'
 import { InvalidParamError } from '../../../_shared/utils/errors'
-import { badRequest } from '../../../_shared/utils/helpers/http-helpers'
+import { badRequest, serverError } from '../../../_shared/utils/helpers/http-helpers'
 import StudentGateway from '../../gateway/student-gateway'
 import AddStudentUseCase from './add-student-usecase'
 import { AddStudentUseCaseInputDTO } from './add-student-usecase-dto'
@@ -54,5 +54,12 @@ describe('AddStudentUseCase test', () => {
     repository.find = jest.fn().mockImplementationOnce(() => makeFakeStudent)
     const promise = await sut.execute(makeFakeRequest)
     expect(promise).toEqual(badRequest(new InvalidParamError('email')))
+  })
+
+  test('Should return 500 if add throws', async () => {
+    const { sut, repository } = makeSut()
+    repository.add = jest.fn().mockReturnValueOnce(Promise.reject(new Error()))
+    const promise = await sut.execute(makeFakeRequest)
+    expect(promise).toEqual(serverError(new Error()))
   })
 })
