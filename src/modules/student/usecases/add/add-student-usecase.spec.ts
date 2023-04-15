@@ -45,7 +45,7 @@ describe('AddStudentUseCase test', () => {
     const { sut } = makeSut()
     const response = await sut.execute(makeFakeRequest)
     expect(response).toBeTruthy()
-    expect(response).toBeTruthy()
+    expect(response.id).toBeTruthy()
   })
 
   test('Should throw if try to add a Student with already existen email', async () => {

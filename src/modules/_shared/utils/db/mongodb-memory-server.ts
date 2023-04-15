@@ -13,7 +13,7 @@ export const connectDb = async (): Promise<void> => {
 }
 
 export const dropDb = async (): Promise<void> => {
-  if(mongodb) {
+  if (mongodb) {
     await mongoose.connection.dropDatabase()
     await mongoose.connection.close()
     await mongodb.stop()
@@ -21,7 +21,7 @@ export const dropDb = async (): Promise<void> => {
 }
 
 export const dropCollections = async (): Promise<void> => {
-  if(mongodb) {
+  if (mongodb) {
     const collections = await mongoose.connection.db.collections()
     for (const collection of collections) {
       await collection.drop()
