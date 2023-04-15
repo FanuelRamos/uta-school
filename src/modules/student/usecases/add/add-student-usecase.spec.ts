@@ -1,8 +1,9 @@
 import Id from '../../../_shared/domain/value-object/id-value-object'
 import { InvalidParamError } from '../../../_shared/utils/errors'
+import { badRequest } from '../../../_shared/utils/helpers/http-helpers'
 import StudentGateway from '../../gateway/student-gateway'
 import AddStudentUseCase from './add-student-usecase'
-import { AddStudentUseCaseInputDTO, AddStudentUseCaseOutputDTO } from './add-student-usecase-dto'
+import { AddStudentUseCaseInputDTO } from './add-student-usecase-dto'
 
 const makeFakeRequest: AddStudentUseCaseInputDTO = {
   name: 'valid_name',
@@ -10,7 +11,7 @@ const makeFakeRequest: AddStudentUseCaseInputDTO = {
   email: 'valid_email@mail.com'
 }
 
-const makeFakeStudent: AddStudentUseCaseOutputDTO = {
+const makeFakeStudent = {
   id: new Id().id,
   name: 'valid_name',
   phone: '+244 900000000',
@@ -45,13 +46,13 @@ describe('AddStudentUseCase test', () => {
     const { sut } = makeSut()
     const response = await sut.execute(makeFakeRequest)
     expect(response).toBeTruthy()
-    expect(response.id).toBeTruthy()
+    expect(response.body.id).toBeTruthy()
   })
 
   test('Should throw if try to add a Student with already existen email', async () => {
     const { sut, repository } = makeSut()
     repository.find = jest.fn().mockImplementationOnce(() => makeFakeStudent)
-    const promise = sut.execute(makeFakeRequest)
-    await expect(promise).rejects.toThrowError(new InvalidParamError('email'))
+    const promise = await sut.execute(makeFakeRequest)
+    expect(promise).toEqual(badRequest(new InvalidParamError('email')))
   })
 })
