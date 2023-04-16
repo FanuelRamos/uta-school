@@ -1,6 +1,6 @@
 import UseCaseInterface from '../../../_shared/usecases/usecase-interface'
 import { HttpResponse } from '../../../_shared/utils/helpers/http'
-import { ok } from '../../../_shared/utils/helpers/http-helpers'
+import { notFound, ok } from '../../../_shared/utils/helpers/http-helpers'
 import StudentGateway from '../../gateway/student-gateway'
 import { FindStudentUseCaseInputDTO } from './find-student-usecase-dto'
 
@@ -9,6 +9,10 @@ export default class FindStudentUseCase implements UseCaseInterface<FindStudentU
 
   async execute (input?: FindStudentUseCaseInputDTO): Promise<HttpResponse> {
     const student = await this._repoditory.find(input.filter)
+
+    if (!student) {
+      return notFound('Student not found!')
+    }
 
     return ok({
       id: student.id,
