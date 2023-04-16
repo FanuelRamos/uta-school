@@ -1,9 +1,9 @@
 import Id from '../../../_shared/domain/value-object/id-value-object'
-import { notFound } from '../../../_shared/utils/helpers/http-helpers'
+import { notFound, serverError } from '../../../_shared/utils/helpers/http-helpers'
 import StudentGateway from '../../gateway/student-gateway'
 import FindStudentUseCase from './find-student-usecase'
 
-const input = {
+const makeFakeRequest = {
   filter: {
     id: new Id().id
   }
@@ -42,7 +42,7 @@ const makeSut = (): SutType => {
 describe('FindStudentUseCase Tests', () => {
   test('Should be able to find a Student', async () => {
     const { sut } = makeSut()
-    const response = await sut.execute(input)
+    const response = await sut.execute(makeFakeRequest)
 
     expect(response).toBeTruthy()
     expect(response.body.id).toBe(makeFakeStudent.id)
@@ -54,8 +54,15 @@ describe('FindStudentUseCase Tests', () => {
   test('Should return notfound error if do not find a Student', async () => {
     const { sut, repository } = makeSut()
     repository.find = jest.fn()
-    const response = await sut.execute(input)
+    const response = await sut.execute(makeFakeRequest)
 
     expect(response).toEqual(notFound('Student not found!'))
+  })
+
+  test('Should return 500 if find throws', async () => {
+    const { sut, repository } = makeSut()
+    repository.find = jest.fn().mockReturnValueOnce(Promise.reject(new Error()))
+    const promise = await sut.execute(makeFakeRequest)
+    expect(promise).toEqual(serverError(new Error()))
   })
 })
