@@ -1,4 +1,5 @@
 import Id from '../../../_shared/domain/value-object/id-value-object'
+import { notFound } from '../../../_shared/utils/helpers/http-helpers'
 import StudentGateway from '../../gateway/student-gateway'
 import FindStudentUseCase from './find-student-usecase'
 
@@ -48,5 +49,13 @@ describe('FindStudentUseCase Tests', () => {
     expect(response.body.name).toBe(makeFakeStudent.name)
     expect(response.body.phone).toBe(makeFakeStudent.phone)
     expect(response.body.email).toBe(makeFakeStudent.email)
+  })
+
+  test('Should return notfound error if do not find a Student', async () => {
+    const { sut, repository } = makeSut()
+    repository.find = jest.fn()
+    const response = await sut.execute(input)
+
+    expect(response).toEqual(notFound('Student not found!'))
   })
 })
