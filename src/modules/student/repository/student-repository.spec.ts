@@ -32,6 +32,14 @@ describe('StudentRepository Tests', () => {
     expect(result.phone).toBe(fakeStudent.phone)
   })
 
+  test('Should not find a Student', async () => {
+    const studentRepository = makeSut()
+
+    const result = await studentRepository.find({ name: fakeStudent.name })
+
+    expect(result).toBeFalsy()
+  })
+
   test('Should find a Student', async () => {
     const studentRepository = makeSut()
 
