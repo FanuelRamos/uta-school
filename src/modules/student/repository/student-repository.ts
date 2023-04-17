@@ -1,10 +1,11 @@
 import { FilterQuery } from 'mongoose'
-import StudentEntity from '../entity/student-entity'
+import Student from '../entity/student-entity'
 import StudentGateway from '../gateway/student-gateway'
 import { StudentModel } from './student-model'
+import Id from '../../_shared/domain/value-object/id-value-object'
 
 export default class StudentRepository implements StudentGateway {
-  async add (student: StudentEntity): Promise<void> {
+  async add (student: Student): Promise<void> {
     await StudentModel.create({
       id: student.id,
       name: student.name,
@@ -15,7 +16,16 @@ export default class StudentRepository implements StudentGateway {
     })
   }
 
-  async find (filter: FilterQuery<unknown>): Promise<StudentEntity> {
-    throw new Error('Method not implemented.')
+  async find (filter: FilterQuery<unknown>): Promise<Student> {
+    const student = await StudentModel.findOne(filter)
+
+    return new Student({
+      id: new Id(student.id),
+      name: student.name!,
+      email: student.email!,
+      phone: student.phone!,
+      createdAt: student.createdAt!,
+      updatedAt: student.updatedAt!
+    })
   }
 }
