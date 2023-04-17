@@ -15,7 +15,7 @@ const makeSut = (): StudentGateway => {
 }
 
 describe('StudentRepository Tests', () => {
-  beforeEach(async () => {
+  beforeAll(async () => {
     await connectDb()
   })
 
@@ -30,6 +30,28 @@ describe('StudentRepository Tests', () => {
     expect(result.name).toBe(fakeStudent.name)
     expect(result.email).toBe(fakeStudent.email)
     expect(result.phone).toBe(fakeStudent.phone)
+  })
+
+  test('Should find a Student', async () => {
+    const studentRepository = makeSut()
+
+    await StudentModel.create({
+      id: fakeStudent.id,
+      name: fakeStudent.name,
+      email: fakeStudent.email,
+      phone: fakeStudent.phone,
+      createdAt: fakeStudent.createdAt,
+      updatedAt: fakeStudent.updatedAt
+    })
+
+    const result = await studentRepository.find({ name: fakeStudent.name })
+    expect(result).toBeTruthy()
+    expect(result.id).toBeDefined()
+    expect(result.name).toBe(fakeStudent.name)
+    expect(result.email).toBe(fakeStudent.email)
+    expect(result.phone).toBe(fakeStudent.phone)
+    expect(result.createdAt).toEqual(fakeStudent.createdAt)
+    expect(result.updatedAt).toEqual(fakeStudent.updatedAt)
   })
 
   afterEach(async () => {
