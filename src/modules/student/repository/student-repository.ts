@@ -18,6 +18,9 @@ export default class StudentRepository implements StudentGateway {
 
   async find (filter: FilterQuery<unknown>): Promise<Student> {
     const student = await StudentModel.findOne(filter)
+    if (!student) {
+      return null
+    }
 
     return new Student({
       id: new Id(student.id),
