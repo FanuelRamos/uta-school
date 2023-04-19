@@ -1,5 +1,5 @@
 import { FilterQuery } from 'mongoose'
-import { HttpResponse } from '../../_shared/utils/helpers/http'
+import { HttpResponse } from '../../../_shared/utils/helpers/http'
 
 export interface AddStudentFacadeInputDTO {
   name: string

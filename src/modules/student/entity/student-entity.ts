@@ -1,5 +1,5 @@
-import BaseEntity from '../../_shared/domain/entity/base-entity'
-import Id from '../../_shared/domain/value-object/id-value-object'
+import BaseEntity from '../../../_shared/domain/entity/base-entity'
+import Id from '../../../_shared/domain/value-object/id-value-object'
 import StudentValidatorFactory from '../factories/student-validator-factory'
 
 type StudentProps = {

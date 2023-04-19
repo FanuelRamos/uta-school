@@ -2,7 +2,7 @@ import { FilterQuery } from 'mongoose'
 import Student from '../entity/student-entity'
 import StudentGateway from '../gateway/student-gateway'
 import { StudentModel } from './student-model'
-import Id from '../../_shared/domain/value-object/id-value-object'
+import Id from '../../../_shared/domain/value-object/id-value-object'
 
 export default class StudentRepository implements StudentGateway {
   async add (student: Student): Promise<void> {

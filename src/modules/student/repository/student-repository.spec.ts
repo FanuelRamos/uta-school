@@ -1,4 +1,4 @@
-import { connectDb, dropCollections, dropDb } from '../../_shared/utils/db/mongodb-memory-server'
+import { connectDb, dropCollections, dropDb } from '../../../_shared/utils/db/mongodb-memory-server'
 import Student from '../entity/student-entity'
 import StudentGateway from '../gateway/student-gateway'
 import { StudentModel } from './student-model'

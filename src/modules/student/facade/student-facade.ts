@@ -1,5 +1,5 @@
-import UseCaseInterface from '../../_shared/usecases/usecase-interface'
-import { HttpResponse } from '../../_shared/utils/helpers/http'
+import UseCaseInterface from '../../../_shared/usecases/usecase-interface'
+import { HttpResponse } from '../../../_shared/utils/helpers/http'
 import { AddStudentFacadeInputDTO, FindStudentFacadeInputDTO, StudentFacadeInterface } from './student-facade-interface'
 
 interface UseCaseProps {

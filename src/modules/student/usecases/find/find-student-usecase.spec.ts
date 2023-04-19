@@ -1,5 +1,5 @@
-import Id from '../../../_shared/domain/value-object/id-value-object'
-import { notFound, serverError } from '../../../_shared/utils/helpers/http-helpers'
+import Id from '../../../../_shared/domain/value-object/id-value-object'
+import { notFound, serverError } from '../../../../_shared/utils/helpers/http-helpers'
 import StudentGateway from '../../gateway/student-gateway'
 import FindStudentUseCase from './find-student-usecase'
 

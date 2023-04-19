@@ -1,4 +1,4 @@
-import ValidatorInterface from '../../_shared/validators/validator-interface'
+import ValidatorInterface from '../../../_shared/validators/validator-interface'
 import Student from '../entity/student-entity'
 import StudentYupValidator from '../validators/student-yup-validator'
 

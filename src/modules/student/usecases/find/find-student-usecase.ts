@@ -1,6 +1,6 @@
-import UseCaseInterface from '../../../_shared/usecases/usecase-interface'
-import { HttpResponse } from '../../../_shared/utils/helpers/http'
-import { notFound, ok, serverError } from '../../../_shared/utils/helpers/http-helpers'
+import UseCaseInterface from '../../../../_shared/usecases/usecase-interface'
+import { HttpResponse } from '../../../../_shared/utils/helpers/http'
+import { notFound, ok, serverError } from '../../../../_shared/utils/helpers/http-helpers'
 import StudentGateway from '../../gateway/student-gateway'
 import { FindStudentUseCaseInputDTO } from './find-student-usecase-dto'
 
