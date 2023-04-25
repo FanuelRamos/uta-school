@@ -9,13 +9,22 @@ const fakeStudent = new Student({
   phone: '+244939781000'
 })
 
+type sutTypes = {
+  add: any
+  find: any
+}
+
+const makeSut = (): sutTypes => {
+  return StudentFacadeFactory.create()
+}
+
 describe('StudentFacade test', () => {
   beforeAll(async () => {
     await connectDb()
   })
 
   test('Should be able to create a new Student ', async () => {
-    const studentFacade = StudentFacadeFactory.create()
+    const studentFacade = makeSut()
 
     const input = {
       name: 'valid_name',
@@ -31,7 +40,7 @@ describe('StudentFacade test', () => {
   })
 
   test('Should be able to find a Student', async () => {
-    const studentFacade = StudentFacadeFactory.create()
+    const studentFacade = makeSut()
 
     await StudentModel.create({
       id: fakeStudent.id,
