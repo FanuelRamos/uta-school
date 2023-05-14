@@ -8,6 +8,13 @@
       "esModuleInterop": true,
       "forceConsistentCasingInFileNames": true,
       "skipLibCheck": true
-    }
+    },
+    "include": [
+        "src"
+    ],
+    "exclude": [
+        "**/*.spec.ts",
+        "**/*.test.ts"
+    ]
 }
   
