@@ -1,5 +1,8 @@
 import app from './config/app'
 import mongoose from 'mongoose'
+import express from 'express'
+
+app.use('/', express.static('./public'))
 
 const connectDB = async (): Promise<void> => {
   try {

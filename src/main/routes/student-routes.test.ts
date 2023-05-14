@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
 import request from 'supertest'
 import app from '../config/app'
-import { afterEach } from 'node:test'
 
 let conn = null
 
