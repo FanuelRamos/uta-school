@@ -4,10 +4,14 @@ import { HttpResponse } from '../../../../_shared/utils/helpers/http'
 import { badRequest, ok, serverError } from '../../../../_shared/utils/helpers/http-helpers'
 import Student from '../../entity/student-entity'
 import StudentGateway from '../../gateway/student-gateway'
+import WellComeEmail from '../../provider/wellcome-email'
 import { AddStudentUseCaseInputDTO } from './add-student-usecase-dto'
 
 export default class AddStudentUseCase implements UseCaseInterface<AddStudentUseCaseInputDTO, HttpResponse> {
-  constructor (private readonly _repository: StudentGateway) {}
+  private email: WellComeEmail
+  constructor (private readonly _repository: StudentGateway) {
+    this.email = new WellComeEmail()
+  }
 
   async execute (input?: AddStudentUseCaseInputDTO): Promise<HttpResponse> {
     try {
@@ -17,6 +21,8 @@ export default class AddStudentUseCase implements UseCaseInterface<AddStudentUse
       }
       const student = new Student(input)
       await this._repository.add(student)
+
+      await this.email.sendEmail(student.email, student.name)
 
       return ok({
         id: student.id.id,
