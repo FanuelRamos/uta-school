@@ -27,5 +27,5 @@ formDOM.addEventListener('submit', async (e) => {
   setTimeout(() => {
     formAlertDOM.style.display = 'none'
     formAlertDOM.classList.remove('text-success')
-  }, 7000)
+  }, 15000)
 })
